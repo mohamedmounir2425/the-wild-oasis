@@ -55,6 +55,11 @@ const Button = styled.button`
   cursor: pointer;
   ${(props) => sizes[props.size]}
   ${(props) => variations[props.variation]}
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
 `;
 Button.defaultProps = {
   size: "medium",
