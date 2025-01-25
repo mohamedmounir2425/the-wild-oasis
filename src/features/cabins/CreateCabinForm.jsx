@@ -13,7 +13,7 @@ import FormRow from "../../ui/FormRow";
 import { useCreateCabin } from "./useCreateCabin";
 import { useEditCabin } from "./useEditCabin";
 
-function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
+function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   // #cabin_edit
   const { id: editId, ...editValues } = cabinToEdit;
   // #Create
@@ -41,20 +41,28 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
       createCabin(
         { ...data, image },
         {
-          onSuccess: () => reset(),
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
         }
       );
     else
       editCabin(
         { newCabin: { ...data, image }, id: editId },
         {
-          onSuccess: () => setShowForm((s) => !s),
+          onSuccess: () => {
+            onCloseModal?.();
+          },
         }
       );
   };
   // #JSX
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       <FormRow error={errors.name?.message} label={"Cabin name"}>
         <Input
           type="text"
@@ -135,7 +143,11 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button disabled={isWorking}>
