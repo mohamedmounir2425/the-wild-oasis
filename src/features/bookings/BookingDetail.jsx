@@ -20,7 +20,7 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const { booking, isLoading, error } = useBooking();
+  const { booking, isLoading } = useBooking();
   const navigate = useNavigate();
   const moveBack = useMoveBack();
 
@@ -47,7 +47,7 @@ function BookingDetail() {
 
       <ButtonGroup>
         {status === "unconfirmed" && (
-          <Button onClick={() => navigate(`/checkin/${booking.bookingId}`)}>
+          <Button onClick={() => navigate(`/checkin/${booking.id}`)}>
             Check in
           </Button>
         )}
