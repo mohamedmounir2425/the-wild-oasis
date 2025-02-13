@@ -9,7 +9,7 @@ function useRecentStays() {
     ? 7
     : Number(searchParams.get("last"));
   const queryDate = subDays(new Date(), numDays).toISOString();
-  const { data: stays, isLoading2 } = useQuery({
+  const { data: stays, isPending: isLoading2 } = useQuery({
     queryFn: () => getStaysAfterDate(queryDate),
     queryKey: ["stays", `last-${numDays}`],
   });
