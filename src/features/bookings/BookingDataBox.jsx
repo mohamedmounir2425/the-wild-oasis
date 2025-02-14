@@ -6,7 +6,6 @@ import {
   HiOutlineCurrencyDollar,
   HiOutlineHomeModern,
 } from "react-icons/hi2";
-
 import DataItem from "../../ui/DataItem";
 import { Flag } from "../../ui/Flag";
 
